@@ -190,7 +190,7 @@ PrintMotd no
 
 ```
 
-You can find a Full file from here [Insert the Links]()
+You can find a Full file from here [Raw `sshd_config` file for download](https://cdn.rawgit.com/boseji/BookOfGists/ce9424fc/files/sshd_config)
 
 *Once you have this setup ready you can restart the PC to restart the SSHD service.*
 
