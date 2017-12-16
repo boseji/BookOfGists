@@ -1,10 +1,10 @@
 # Securing SSH on Ubuntu - Works for 16.04, 16.10, 17.04,17.10 - Tested
 
 Some of us like myself do our primary hardware development on Windows PCs.
-However when it come to writing a [`Go`](https://golang.org) server or a [`Rust`](https://www.rust-lang.org) program we head over to linux PC.
+However when it come to writing a [`Go`](https://golang.org) server or a [`Rust`](https://www.rust-lang.org) program we head over to Linux PC.
 
-Most of the development work on a linux PC is via the terminal. Hence having a good remote terminal is essential.
-As you can't always have a VM instances running your linux. It become difficult over time.
+Most of the development work on a Linux PC is via the terminal. Hence having a good remote terminal is essential.
+As you can't always have a VM instances running your Linux. It become difficult over time.
 
 The best is to have either a headless PC or an old Laptop that would act as our Linux box.
 
@@ -12,7 +12,7 @@ In my case I had an old **Celeron Core 2 Duo** a.k.a `i386`.
 
 Since the loss of `Windows XP` the laptop was running **Ubuntu 16.04**.
 
-There were several tutotials on the Net telling about how to configure an SSH server
+There were several tutorials on the Net telling about how to configure an SSH server
 however every time I tried them some thing was wrong or some thing did not work.
 
 Hence I decided to document my journey to have a good secure SSH server running on my old Laptop.
@@ -41,12 +41,12 @@ Here is a List of packages that would be installed :
 
 https://packages.ubuntu.com/search?keywords=ssh&searchon=names&suite=all&section=all
 
-You can look at the individual distrubtions in the [link](https://packages.ubuntu.com/search?keywords=ssh&searchon=names&suite=all&section=all) above.
+You can look at the individual distributions in the [link](https://packages.ubuntu.com/search?keywords=ssh&searchon=names&suite=all&section=all) above.
 
 Typically there are few important ones to note:
 
- 1. `openssh-client` = This gives all the importat features needed in linux to connect to other SSH servers and generate keys .etc.
- 2. `openssh-server` = A.K.A **`SSHD`** The famous SSH server for Linux. This enables your linux box to become a server 
+ 1. `openssh-client` = This gives all the important features needed in Linux to connect to other SSH servers and generate keys .etc.
+ 2. `openssh-server` = A.K.A **`SSHD`** The famous SSH server for Linux. This enables your Linux box to become a server 
  and provide ssh terminal connection features from windows.
 
 With these two installed its most likely that your **SSH Server** is already running.
@@ -65,7 +65,7 @@ To check if the SSH is running then type the following command:
 ps -e|grep ssh
 ```
 
-If this shows an empty list then you have successfuly turned off your unsafe ssh server.
+If this shows an empty list then you have successfully turned off your unsafe ssh server.
 
 ## Generate the keys for SSH
 
@@ -89,14 +89,14 @@ cat $HOME/.ssh/id_rsa.pub >> .ssh/authorized_keys
 
 This would add the currently generated keys to the Authorized Keys register for connection.
 
-In case you have used a diffrent folder or filename for the key then you need to provide the 
+In case you have used a different folder or filename for the key then you need to provide the 
 **public key version of that name**.
 
 For Example if we have created `/home/user/priv.key` then the public key would be available at `/home/user/priv.key.pub`
 
 It is important that the particular user or the global list of the Authorized keys needs to be updated.
 This would allow only a specific private key to be used.
-In case the system has multiple ussers then perform the command as:
+In case the system has multiple users then perform the command as:
 
 ```shell
 cat $HOME/.ssh/id_rsa.pub >> /etc/ssh/global_authorized_keys
@@ -117,7 +117,7 @@ Here are some of the **Important** Modifications:
 
 ...
 
-# Changing the Default SSH Port helps to make a more secure - Its more like a no-brainer, but make sure to remeber.
+# Changing the Default SSH Port helps to make a more secure - Its more like a no-brainier, but make sure to remember.
 Port 1221
 
 ...
@@ -200,7 +200,7 @@ On windows the free program [**WinSCP**](https://winscp.net/eng/download.php) is
 many people use to connect to the remote ssh server.
 Also [**Putty**](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) 
 utility along with [**WinSCP**](https://winscp.net/eng/download.php)
-program helps to connect to linux SSH terminal.
+program helps to connect to Linux SSH terminal.
 
 In order to make both of them work, we need to convert our Private key to a **WinSCP/Putty** acceptable form.
 
@@ -208,7 +208,7 @@ For that we use the tool call `PuTTYgen` its used to convert the binary file to 
 
   * First copy the `id_rsa` file or where ever you have stored the **Private Key** to the Windows PC.
   
-  **NOTE : This is extemely risky step. Make sure to take proper precuaution to securely transfer your private key**
+  **NOTE : This is extremely risky step. Make sure to take proper precaution to securely transfer your private key**
   
   * Next open the `PuTTYgen` tool it would open a Window by the title **PuTTY Key Generator**. 
   We are going to use this to convert the keys.
@@ -263,12 +263,10 @@ In the **WinSCP** Connection dialog set the follow:
 
 ## A Piece of Disclaimer
 
-Though we are talking of secure connection to Linux PC, but method discrbed above is still vulnurable.
+Though we are talking of secure connection to Linux PC, but method described in previous sections is still vulnerable.
 
 One must use hardware key store or HSM modules like [YubiHSM](https://www.yubico.com/products/yubihsm/) for better security.
 
 At any point if the Private key is compromised in the above process due to weak password, no-password or direct Hacking the whole network security to the Linux is compromised.
 
-Hence its recommened to use this technique when using VMs or Older PCs on a Private network not connected to Internet in any way.
-
-*WARNING: This free document / guide is for your convenience and its use is at your own risk. It is available as a reference only, and IS NOT INHERENTLY A SECURE WAY to connect to Linux. The author/providers cannot and do not guarantee the privacy of your data, its security and communication. There are potentially serious security issues with any computer connected to the Internet without the appropriate protection, ranging from viruses, worms and other programs that can damage the user’s computer both ways, to attacks on the computer by unauthorized or unwanted third parties. By following this guide, you acknowledge and knowingly accept the potentially serious risks of accessing your hardware unsecurely over network. It is recommended that users take steps to protect their own computer system, such as installing current anti-virus software and maintaining appropriate firewall protection. You acknowledge and agree that YOUR USE OF THIS DOCUMENT & ABOVE PROCESS IS SOLELY AT YOUR OWN RISK.*
+*WARNING: This free document / guide is for your convenience and its use is at your own risk. It is available as a reference only, and IS NOT INHERENTLY A SECURE WAY to connect to Linux. The author/providers cannot and do not guarantee the privacy of your data, its security and communication. There are potentially serious security issues with any computer connected to the Internet without the appropriate protection, ranging from viruses, worms and other programs that can damage the user’s computer both ways, to attacks on the computer by unauthorized or unwanted third parties. By following this guide, you acknowledge and knowingly accept the potentially serious risks of accessing your hardware unsecured over network. It is recommended that users take steps to protect their own computer system, such as installing current anti-virus software and maintaining appropriate firewall protection. You acknowledge and agree that YOUR USE OF THIS DOCUMENT & ABOVE PROCESS IS SOLELY AT YOUR OWN RISK.*
